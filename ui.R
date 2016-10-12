@@ -43,6 +43,8 @@ shinyUI(fluidPage(
                      value = FALSE)
       ,actionButton(inputId = 'resetButton',
                     label="Reset")
+      ,actionButton(inputId = 'stepButton',
+                    label = 'Step')
       # Sample properties and histogram
       ,verbatimTextOutput('sample')
       ,plotOutput('samp.hist', height='200px')

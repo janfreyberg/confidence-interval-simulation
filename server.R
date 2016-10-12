@@ -12,6 +12,7 @@ barheight <- rep(0, 500)
 cumulatives <- 1
 speed <- 1.0
 confidence <- 0.95
+stepping <- FALSE
 
 shinyServer(function(input, output, session) {
   
@@ -20,6 +21,16 @@ shinyServer(function(input, output, session) {
                 {
                   speed <<- input$speed
                 })
+  
+  observeEvent(input$stepButton, {
+    if(!input$running){
+    updateCheckboxInput(session,
+                        inputId = "running",
+                        label='Run Simulation',
+                        value = TRUE)
+    stepping <<- TRUE
+    }
+  })
 
   
   output$conf.plot<-renderPlot({
@@ -86,7 +97,15 @@ shinyServer(function(input, output, session) {
     }
     
     if(input$running){
-      invalidateLater(500 / speed)
+      if(stepping){
+        updateCheckboxInput(session,
+                            inputId = "running",
+                            label='Run Simulation',
+                            value = FALSE)
+        stepping <<- FALSE
+      } else {
+        invalidateLater(500 / speed)
+      }
     }
 
   })
@@ -113,14 +132,30 @@ shinyServer(function(input, output, session) {
                     expression(paste(sigma))),
          cex.axis=2)
     if(input$running){
-      invalidateLater(500 / speed)
+      if(stepping){
+        updateCheckboxInput(session,
+                            inputId = "running",
+                            label='Run Simulation',
+                            value = FALSE)
+        stepping <<- FALSE
+      } else {
+        invalidateLater(500 / speed)
+      }
     }
   })
   
   # Text of sample properties for left hand side:
   output$sample <- renderText({
     if(input$running){
-      invalidateLater(500 / speed)
+      if(stepping){
+        updateCheckboxInput(session,
+                            inputId = "running",
+                            label='Run Simulation',
+                            value = FALSE)
+        stepping <<- FALSE
+      } else {
+        invalidateLater(500 / speed)
+      }
     }
     return(
       paste(" Population Mean: ", input$mean, "\n",
@@ -134,6 +169,13 @@ shinyServer(function(input, output, session) {
   output$samp.hist <- renderPlot({
     if(input$running){
       invalidateLater(500 / speed)
+      if(stepping){
+        updateCheckboxInput(session,
+                            inputId = "running",
+                            label='Run Simulation',
+                            value = FALSE)
+        stepping <<- FALSE
+      }
     }
     hist(x,
          xlim = c(input$mean-2*input$stdev, input$mean+2*input$stdev),

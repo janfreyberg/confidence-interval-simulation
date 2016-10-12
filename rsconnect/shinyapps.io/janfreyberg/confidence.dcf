@@ -2,6 +2,6 @@ name: confidence
 account: janfreyberg
 server: shinyapps.io
 appId: 129856
-bundleId: 584377
+bundleId: 584667
 url: https://janfreyberg.shinyapps.io/confidence/
-when: 1476269247.42264
+when: 1476290088.92388
