@@ -6,7 +6,6 @@
 #
 
 library(shiny)
-library(sn)
 
 intervals <- rep(list(c(0, 0)), 40)
 barheight <- rep(0, 500)
