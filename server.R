@@ -153,12 +153,14 @@ shinyServer(function(input, output, session) {
       }
     }
     return(
-      paste(" Population Mean: ", input$mean, " | ",
-      "Sample Mean: ", round(mean(x), digits=2), "\n",
-      "Sample St. Dev:  ", round(sd(x), digits=2), "\n",
-      "Confidence Interval: ",
-      round(intervals[[1]][1], digits=2), " - ",
-      round(intervals[[1]][2], digits=2))
+      paste(
+      "Population Mean: ", format(round(input$mean, digits=1), nsmall=1), " | ",
+      "Sample Mean: ", format(round(mean(x), digits=1), nsmall=1), "\n",
+      "Sample St. Dev:  ", format(round(sd(x), digits=1), nsmall=1), " | ",
+      "Conf. Interval: ",
+      format(round(intervals[[1]][1], digits=1), nsmall=1), "-",
+      format(round(intervals[[1]][2], digits=1), nsmall=1),
+      sep="")
     )
   })
   

@@ -12,7 +12,7 @@ shinyUI(fluidPage(
           "the true population mean. Additionally, a cumulative histogram of the ",
           "proportion of times a value was inside the confidence interval is shown ",
           "on the bottom. This value will tend towards the confidence level for the ",
-          "population mean.")),
+          "population mean. NB: This is best viewed on a large screen.")),
   # Sidebar with input
   sidebarLayout(
     sidebarPanel(
@@ -28,12 +28,14 @@ shinyUI(fluidPage(
                column(6, numericInput(inputId = "conf.level",
                                       label=strong("Confidence Level"),
                                       value=0.95, min=0.1, max=0.99, step=0.04))),
-      sliderInput(inputId = "speed",
-                    label=strong("Animation Speed"),
-                    value=1.0, min=0.1, max=10, step=0.1),
-      checkboxInput(inputId = "running", label='Run Simulation', value = FALSE),
-      actionButton(inputId = 'resetButton', label="Reset Animation"),
-      actionButton(inputId = 'stepButton', label = 'Generate Sample'),
+      sliderInput(inputId = "speed", label=strong("Animation Speed"),
+                  value=1.0, min=0.1, max=10, step=0.1),
+      checkboxInput(inputId = "running", label='Run Simulation',
+                                       value = FALSE),
+      actionButton(inputId = 'resetButton',
+                                      label="Reset"),
+      actionButton(inputId = 'stepButton',
+                                      label = 'Step'),
       hr(),
       # Sample properties and histogram
       verbatimTextOutput('sample'),
